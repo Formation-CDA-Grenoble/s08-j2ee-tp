@@ -5,7 +5,7 @@ import { ArticlePreview, Layout } from '../components';
 const ArticleList = () =>
   <Layout>
     {articles.map( (article, index) =>
-      <ArticlePreview key={`article${index}`} {...article} />
+      <ArticlePreview key={`article${index}`} id={index} {...article} />
     )}
   </Layout>
 ;

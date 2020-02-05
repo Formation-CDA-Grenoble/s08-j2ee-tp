@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import trimString from '../utils/trimString';
+import { Link } from 'react-router-dom';
 
-const ArticlePreview = ({ title, date, author, content }) =>
+const ArticlePreview = ({ id, title, date, author, content }) =>
   <Card className='mt-4'>
     <Card.Header as="h2">{title}</Card.Header>
     <Card.Body>
@@ -10,7 +11,9 @@ const ArticlePreview = ({ title, date, author, content }) =>
       <Card.Text>
         {trimString(content)}...
       </Card.Text>
-      <Button variant="primary">Lire la suite</Button>
+      <Link to={`/articles/${id}`}>
+        <Button variant="primary">Lire la suite</Button>
+      </Link>
     </Card.Body>
   </Card>
 ;

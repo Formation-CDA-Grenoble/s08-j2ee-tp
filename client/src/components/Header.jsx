@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Header = () =>
   <Navbar bg="primary" variant="dark">
-    <Navbar.Brand href="#home">CDA Blog</Navbar.Brand>
+    <Navbar.Brand>CDA Blog</Navbar.Brand>
     <Nav className="mr-auto">
-      <Nav.Link href="#home">Accueil</Nav.Link>
+      <Link to='/' style={{ color: 'lightgrey' }}>Accueil</Link>
     </Nav>
   </Navbar>
 ;
