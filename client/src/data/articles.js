@@ -1,4 +1,4 @@
-import { users } from '.';
+import users from './users';
 
 const articles = [
   {
