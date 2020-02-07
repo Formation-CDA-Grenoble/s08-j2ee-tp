@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import com.example.api.entity.Article;
 import com.example.api.repository.ArticleRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/articles")
 public class ArticleController {
