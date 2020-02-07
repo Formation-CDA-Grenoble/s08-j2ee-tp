@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "article")
 public class Article {
@@ -25,6 +27,18 @@ public class Article {
     @Column(name = "claps", nullable = false)
     private int claps;
 
+    @ManyToOne
+    @JsonIgnoreProperties("articles")
+    @JoinColumn(name = "author_id")
+    private User author;
+
+
+    public User getAuthor() {
+    	return this.author;
+    }
+    public void setAuthor(User author) {
+    	this.author = author;
+    }
 
     public int getClaps() {
     	return this.claps;

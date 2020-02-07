@@ -1,11 +1,15 @@
 package com.example.api.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "user")
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
@@ -17,6 +21,17 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties("author")
+    private Set<Article> articles;
+
+
+    public Set<Article> getArticles() {
+    	return this.articles;
+    }
+    public void setArticles(Set<Article> articles) {
+    	this.articles = articles;
+    }
 
     public String getEmail() {
     	return this.email;

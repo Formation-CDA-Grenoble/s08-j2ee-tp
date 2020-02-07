@@ -55,6 +55,7 @@ public class ArticleController {
         article.setTitle(newArticle.getTitle());
         article.setContent(newArticle.getContent());
         article.setClaps(newArticle.getClaps());
+        article.setAuthor(newArticle.getAuthor());
         return articleRepository.save(article);
     }
 
