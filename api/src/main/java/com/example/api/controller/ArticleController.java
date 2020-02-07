@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,11 @@ public class ArticleController {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @GetMapping("")
+    public List<Article> getAllArticles() {
+        return articleRepository.findAll();
+    }
 
     @PostMapping("")
     public Article createArticle(@Valid @RequestBody Article article) {
