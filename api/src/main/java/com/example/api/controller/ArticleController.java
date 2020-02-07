@@ -40,4 +40,13 @@ public class ArticleController {
         }
         return articleRepository.save(article);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteArticle(@PathVariable(value = "id") long id) {
+        articleRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Article does not exist")
+        );
+        articleRepository.deleteById(id);
+    }
 }
