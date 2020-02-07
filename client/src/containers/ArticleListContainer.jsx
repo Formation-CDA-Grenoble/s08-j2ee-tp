@@ -1,19 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import Loader from 'react-loader-spinner';
 import ArticleList from '../pages/ArticleList';
-import { Layout } from '../components';
-
-const ArticleListLoader = () =>
-  <Layout>
-    <Loader
-      type="Puff"
-      color="#00BFFF"
-      height={100}
-      width={100}
-    />
-  </Layout>
-;
 
 export default class ArticleListContainer extends Component {
   state = {
@@ -32,7 +19,7 @@ export default class ArticleListContainer extends Component {
     const { data } = this.state;
 
     if (data === null) {
-      return <ArticleListLoader />
+      return <div>Loading...</div>
     }
 
     return (
