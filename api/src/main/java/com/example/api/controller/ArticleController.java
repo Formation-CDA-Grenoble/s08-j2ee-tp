@@ -3,6 +3,7 @@ package com.example.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,13 @@ public class ArticleController {
     @GetMapping("")
     public List<Article> getAllArticles() {
         return articleRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Article getArticle(@PathVariable(value = "id") long id) {
+        return articleRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Article does not exist")
+        );
     }
 
     @PostMapping("")
