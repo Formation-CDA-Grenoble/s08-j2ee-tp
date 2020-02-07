@@ -1,16 +1,12 @@
 import React from 'react';
 import { Layout } from '../components';
-import { articles } from '../data';
+// import { articles } from '../data';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignLanguage } from '@fortawesome/free-solid-svg-icons';
 
-const Article = props => {
-  const id = props.match.params.id;
-  const article = articles[id];
-  const { title, author, content, date, claps } = article;
-
+const Article = ({ title, author, content, date, claps }) => {
   return (
     <Layout>
       <h1>{title}</h1>
