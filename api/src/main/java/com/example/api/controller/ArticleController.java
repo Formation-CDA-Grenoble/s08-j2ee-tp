@@ -41,6 +41,23 @@ public class ArticleController {
         return articleRepository.save(article);
     }
 
+    @PutMapping("/{id}")
+    public Article updateArticle(
+        @Valid @RequestBody Article newArticle,
+        @PathVariable(value = "id") long id
+    ) {
+        Article article = articleRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Article does not exist")
+        );
+        if (newArticle.getId() != 0 && newArticle.getId() != id) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Article id does not match requested resource id");
+        }
+        article.setTitle(newArticle.getTitle());
+        article.setContent(newArticle.getContent());
+        article.setClaps(newArticle.getClaps());
+        return articleRepository.save(article);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteArticle(@PathVariable(value = "id") long id) {
