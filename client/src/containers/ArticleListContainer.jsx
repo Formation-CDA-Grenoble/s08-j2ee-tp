@@ -18,18 +18,32 @@ const ArticleListLoader = () =>
 export default class ArticleListContainer extends Component {
   state = {
     data: null,
+    errorMessage: null,
   }
 
   async componentDidMount() {
-    // Attend que la requête AJAX réponde
-    const response = await Axios.get('http://localhost:8080/api/articles');
-    const { data } = response;
-    // Modifier l'état du composant une fois que la réponse est arrivée
-    this.setState({ data });
+    try {
+      // Attend que la requête AJAX réponde
+      const response = await Axios.get('http://localhost:8080/api/articles');
+      const { data } = response;
+      // Modifier l'état du composant une fois que la réponse est arrivée
+      this.setState({ data });
+    }
+    catch(error) {
+      this.setState({ errorMessage: error.message });
+    }
   }
 
   render() {
-    const { data } = this.state;
+    const { data, errorMessage } = this.state;
+
+    if (errorMessage) {
+      return (
+        <Layout>
+          {errorMessage}
+        </Layout>
+      );
+    }
 
     if (data === null) {
       return <ArticleListLoader />

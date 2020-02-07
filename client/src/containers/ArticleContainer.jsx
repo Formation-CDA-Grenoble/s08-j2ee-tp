@@ -18,24 +18,51 @@ const ArticleLoader = () =>
 export default class ArticleContainer extends Component {
   state = {
     data: null,
+    errorMessage: null,
   }
 
   async componentDidMount() {
     const id = this.props.match.params.id;
-    const response = await Axios.get(`http://localhost:8080/api/articles/${id}`);
-    const { data } = response;
-    this.setState({ data });
+    try {
+      const response = await Axios.get(`http://localhost:8080/api/articles/${id}`);
+      const { data } = response;
+      this.setState({ data });
+    }
+    catch(error) {
+      this.setState({ errorMessage: error.message });
+    }
+  }
+
+  clap = async () => {
+    const id = this.props.match.params.id;
+    try {
+      const response = await Axios.post(`http://localhost:8080/api/articles/${id}/clap`);
+      const claps = response.data;
+      const { data } = this.state;
+      this.setState({ data: {...data, claps} })
+    }
+    catch(error) {
+      this.setState({ errorMessage: error.message });
+    }
   }
 
   render() {
-    const { data } = this.state;
+    const { data, errorMessage } = this.state;
+
+    if (errorMessage) {
+      return (
+        <Layout>
+          {errorMessage}
+        </Layout>
+      );
+    }
 
     if (data === null) {
-      return <ArticleLoader />
+      return <ArticleLoader />;
     }
 
     return (
-      <Article {...data} />
+      <Article {...data} clap={this.clap} />
     );
   }
 }
