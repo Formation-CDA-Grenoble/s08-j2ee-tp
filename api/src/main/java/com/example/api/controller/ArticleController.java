@@ -68,4 +68,15 @@ public class ArticleController {
         );
         articleRepository.deleteById(id);
     }
+
+    @PostMapping("/{id}/clap")
+    public int addClap(@PathVariable(value = "id") long id) {
+        Article article = articleRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Article does not exist")
+        );
+        int claps = article.getClaps() + 1;
+        article.setClaps(claps);
+        articleRepository.save(article);
+        return claps;
+    }
 }
